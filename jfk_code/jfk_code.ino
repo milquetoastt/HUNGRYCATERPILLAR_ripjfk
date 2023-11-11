@@ -24,18 +24,23 @@ void setup()
 void loop() {
   if(digitalRead(lhoBP)==HIGH)
   {
-    if(digitalRead(cpOneBP)==HIGH || digitalRead(cpTwoBP==HIGH))
-    {
-      if(gunButtonPin==HIGH)
+    
+      if(shotCount<1&&gunButtonPin==HIGH)
       {
         bullet.write(180);
         shotCount++;
       }
+    
+     if(shotCount<3&&digitalRead(cpTwoBP)==HIGH)
+     {
+       bullet.write(180);
+       shotCount++;
+     }
       else
       {
         bullet.write(0);
       }
-    }
+    
     if(shotCount==3) 
     {
       jfkHead.write(90);
@@ -46,3 +51,4 @@ void loop() {
     }
   }
 }
+
