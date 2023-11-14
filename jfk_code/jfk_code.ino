@@ -2,7 +2,7 @@
 Servo bullet;
 Servo jfkHead;
 Servo dpd;
-const int gunButtonPin=2;
+const int gunButtonPin=7;
 const int cpOneBP=3;
 const int cpTwoBP=4;
 const int cpThreeBP=5;
