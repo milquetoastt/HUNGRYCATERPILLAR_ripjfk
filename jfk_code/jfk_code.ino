@@ -12,7 +12,7 @@ void setup()
 {
   Serial.begin(9600);
   bullet.attach(9);
-  jfkHead.attach(10);
+  jfkHead.attach(12);
   dpd.attach(11);
   pinMode(gunButtonPin, INPUT);
   pinMode(cpOneBP, INPUT);
@@ -23,46 +23,53 @@ void setup()
 }
 
 void loop() {
+  bullet.write(0);
+  jfkHead.write(0);
+  dpd.write(0);
+  
 
-  if(digitalRead(cpOneBP)){
-    Serial.println("1");
-    bullet.write(180);
-  }
-  if(digitalRead(cpTwoBP)){
-    Serial.println("2");
-    bullet.write(0);
-  }
-  if(digitalRead(cpThreeBP)){
-    Serial.println("3");
-  }
-
-
-  if(digitalRead(lhoBP)
+  if(digitalRead(lhoBP))
   {
     
-      if(shotCount<1&&digitalRead(gunButtonPin))
+    //Serial.println("assassin");
+    
+      if(shotCount==0&&digitalRead(gunButtonPin)&&digitalRead(cpOneBP))
       {
-        bullet.write(180);
+        bullet.write(70);
         shotCount++;
-        delay(300);
+        delay(500);
         bullet.write(0);
+        Serial.println(shotCount);
       }
     
-     if(shotCount<3&&digitalRead(cpTwoBP))
+     if(shotCount==1&&digitalRead(gunButtonPin)&&digitalRead(cpTwoBP))
      {
-       bullet.write(180);
        shotCount++;
-       delay(300);
+       bullet.write(70);
+       delay(500);
        bullet.write(0);
+       Serial.println(shotCount);
+     }
+
+     if(shotCount==2&&digitalRead(gunButtonPin)&&digitalRead(cpTwoBP))
+     {
+       bullet.write(70);
+       shotCount++;
+       delay(500);
+       bullet.write(0);
+       Serial.println(shotCount);
      }
     
     if(shotCount==3) 
     {
-      jfkHead.write(90);
+      jfkHead.write(180);delay(500);
+      Serial.println("ouchie");
+      shotCount++;
     }
-    if(digitalRead(cpThreeBP)
+    if(digitalRead(cpThreeBP))
     {
       dpd.write(180);
+     // Serial.println("DPD");
     }
   }
 }
